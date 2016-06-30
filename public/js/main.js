@@ -50,6 +50,7 @@ var markers = [];
 
 $(document).ready(function() {
   var viewsObj = {};
+  var markersObj={};
 
   viewsObj.day0 = $('#itinerary').children().clone();
 
@@ -148,30 +149,49 @@ $(document).ready(function() {
 
   function switchDay(day, self) {
     var currentDay = $('.current-day').first().text();
-
     viewsObj['day' + currentDay] = $('#itinerary').children().clone();
+    markersObj['day' + currentDay]= getMarkers();
+    setMapOnMarkers(markersObj['day' + currentDay], null);
     $('#itinerary').empty();
     if (viewsObj['day' + day]) {
       $('#itinerary').append(viewsObj['day' + day]);
+      setMapOnMarkers(markersObj['day' + day],currentMap);
     } else {
       $('#itinerary').append(viewsObj.day0);
     }
     $('.current-day').removeClass('current-day');
     $(self).addClass('current-day');
+    $('#day-title span').text($('.current-day').text());
   }
 
   function addDay() {
-    var currentDay = $('.current-day').first().text();
+    var current = $('.current-day').first();
+    var currentDay= current.text();
     viewsObj['day' + currentDay] = $('#itinerary').children().clone();
     var buttons = $('.day-btn');
-      $('<button class="btn btn-circle day-btn current-day">' + buttons.length + '</button>').insertBefore('#day-add');
+    $('<button class="btn btn-circle day-btn current-day">' + buttons.length + '</button>').insertBefore('#day-add');
+    $('#day-title span').text($('.current-day').text());
     $('#itinerary').empty();
     $('#itinerary').append(viewsObj.day0);
-    $('.current-day').removeClass('current-day');
+    $(current).removeClass('current-day');
+  }
+
+  function getMarkers(){
+    var buttons = $('#itinerary button').get();
+    var markersArr = buttons.map(function(button) {
+      return $(button).data().marker.marker;
+    })
+    return markersArr;
+  }
+
+  function setMapOnMarkers(array, map){
+    array.forEach(function (marker) {
+      marker.setMap(map);
+    })
   }
 
   $('.day-buttons').on('click', 'button', function() {
-    var dayNo;
+
     if($(this).text() == '+')  {
       addDay();
     }
@@ -179,6 +199,12 @@ $(document).ready(function() {
       switchDay($(this).text(), this)
     }
   });
+
+  $('#day-title button').on('click', function() {
+
+  });
+
+  function
 
 
 });
