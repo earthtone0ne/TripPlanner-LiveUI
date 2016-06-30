@@ -1,7 +1,6 @@
 {
   "name": "tripplanner",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "build-css": "node-sass -w -r assets/stylesheets -o public/stylesheets",
@@ -22,7 +21,16 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "node-sass": "3.4.2",
+    "node-sass": "3.8.0",
     "nodemon": "^1.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/earthtone0ne/TripPlanner-LiveUI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/earthtone0ne/TripPlanner-LiveUI/issues"
+  },
+  "homepage": "https://github.com/earthtone0ne/TripPlanner-LiveUI#readme",
+  "description": ""
 }

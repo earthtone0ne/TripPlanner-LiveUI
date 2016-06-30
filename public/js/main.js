@@ -56,8 +56,42 @@ $(function initializeMap (){
     marker.setMap(currentMap);
   }
 
-  drawMarker('hotel', [40.705137, -74.007624]);
-  drawMarker('restaurant', [40.705137, -74.013940]);
-  drawMarker('activity', [40.716291, -73.995315]);
+
+  // drawMarker('hotel', [40.705137, -74.007624]);
+  // drawMarker('restaurant', [40.705137, -74.013940]);
+  // drawMarker('activity', [40.716291, -73.995315]);
+
+});
+
+function populateSelect (array,type){
+    array.forEach(function (item) {
+      $('#'+type+'-choices').append('<option>'+item.name+'</option>')
+    });
+}
+
+var itineraryHtmlPart1 = '<div class="itinerary-item"><span class="title">';
+var itineraryHtmlPart2 = '</span><button class="btn btn-xs btn-danger remove btn-circle">x</button></div>'
+
+$(document).ready(function () {
+    populateSelect(hotels,'hotel');
+    populateSelect(activities,'activity');
+    populateSelect(restaurants,'restaurant');
+
+
+  $('button.hotel').on('click', function() {
+    var selectedHotel = $('#hotel-choices option:selected').val();
+    $('ul.hotel').append(itineraryHtmlPart1 + selectedHotel + itineraryHtmlPart2);
+  });
+
+  $('button.restaurant').on('click', function() {
+    var selectedRestaurant = $('#restaurant-choices option:selected').val();
+    $('ul.restaurant').append(itineraryHtmlPart1 + selectedRestaurant + itineraryHtmlPart2);
+  });
+
+   $('button.activity').on('click', function() {
+    var selectedActivity = $('#activity-choices option:selected').val();
+    $('ul.activity').append(itineraryHtmlPart1 + selectedActivity + itineraryHtmlPart2);
+  });
+
 
 });
