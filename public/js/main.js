@@ -49,10 +49,10 @@ var itineraryHtmlPart2 = '</span><button class="btn btn-xs btn-danger remove btn
 var markers = [];
 
 $(document).ready(function() {
-  var viewsObj = {};
-  var markersObj={};
+  var viewsArray = [];
+  var markersArray = [];
 
-  viewsObj.day0 = $('#itinerary').children().clone();
+  viewsArray[0] = $('#itinerary').children().clone();
 
 
   function drawMarker (type, coords) {
@@ -149,15 +149,15 @@ $(document).ready(function() {
 
   function switchDay(day, self) {
     var currentDay = $('.current-day').first().text();
-    viewsObj['day' + currentDay] = $('#itinerary').children().clone();
-    markersObj['day' + currentDay]= getMarkers();
-    setMapOnMarkers(markersObj['day' + currentDay], null);
+    viewsArray[currentDay] = $('#itinerary').children().clone();
+    markersArray[currentDay]= getMarkers();
+    setMapOnMarkers(markersArray[currentDay], null);
     $('#itinerary').empty();
-    if (viewsObj['day' + day]) {
-      $('#itinerary').append(viewsObj['day' + day]);
-      setMapOnMarkers(markersObj['day' + day],currentMap);
+    if (viewsArray[day]) {
+      $('#itinerary').append(viewsArray[day]);
+      setMapOnMarkers(markersArray[day],currentMap);
     } else {
-      $('#itinerary').append(viewsObj.day0);
+      $('#itinerary').append(viewsArray[0]);
     }
     $('.current-day').removeClass('current-day');
     $(self).addClass('current-day');
@@ -167,18 +167,20 @@ $(document).ready(function() {
   function addDay() {
     var current = $('.current-day').first();
     var currentDay= current.text();
-    viewsObj['day' + currentDay] = $('#itinerary').children().clone();
+    viewsArray[currentDay] = $('#itinerary').children().clone();
     var buttons = $('.day-btn');
     $('<button class="btn btn-circle day-btn current-day">' + buttons.length + '</button>').insertBefore('#day-add');
     $('#day-title span').text($('.current-day').text());
     $('#itinerary').empty();
-    $('#itinerary').append(viewsObj.day0);
+    $('#itinerary').append(viewsArray[0]);
     $(current).removeClass('current-day');
   }
 
   function getMarkers(){
     var buttons = $('#itinerary button').get();
+    console.log(buttons);
     var markersArr = buttons.map(function(button) {
+      console.log($(button).data());
       return $(button).data().marker.marker;
     })
     return markersArr;
@@ -204,7 +206,7 @@ $(document).ready(function() {
 
   });
 
-  function
+
 
 
 });
